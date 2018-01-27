@@ -6,14 +6,13 @@
 # 
 
 import numpy as N
-import math
-import cv2
+import makeLuminanceMap
 
 def reinhardLocal( hdr, saturation, eps, phi ):
     print('Computing luminance map\n');
     luminanceMap = makeLuminanceMap(hdr);
 
-    alpha = 1 / (2 * sqrt(2));
+    alpha = 1 / (2 * N.sqrt(2));
     key = 0.18;
 
     v1 = N.zeros(N.size(luminanceMap,1), N.size(luminanceMap,2), 8);
@@ -37,7 +36,7 @@ def reinhardLocal( hdr, saturation, eps, phi ):
         gaussKernelHorizontal = fspecial('gaussian', [kernelSize 1], sigma);
         v1[:,:,scale] = conv2(luminanceMap, gaussKernelHorizontal, 'same');
         gaussKernelVertical = fspecial('gaussian', [1 kernelSize], sigma);
-        v1[:,:,scale] = conv2(v1(:,:,scale), gaussKernelVertical, 'same');
+        v1[:,:,scale] = conv2(v1[:,:,scale], gaussKernelVertical, 'same');
 
     for i in range(1, 8):
         v[:,:,i] = abs((v1[:,:,i]) - v1[:,:,i+1]) ./ ((2^phi) * key / (s^2) + v1[:,:,i]);    
@@ -58,13 +57,13 @@ def reinhardLocal( hdr, saturation, eps, phi ):
 
                     # if we already have a high contrast change in the
                     # first scale we can only use that one
-                    if (scale == 1) 
+                    if (scale == 1):
                         sm[i,j] = 1;
 
                     # if we have a contrast change bigger than epsilon, we
                     # know that in scale scale-1 the contrast change was
                     # smaller than epsilon and use that one
-                    if (scale > 1)
+                    if (scale > 1):
                         sm[i,j] = scale - 1;
                     break;
     # all areas in the pic that have very small variations and therefore in
@@ -72,7 +71,7 @@ def reinhardLocal( hdr, saturation, eps, phi ):
     # the loop above.
     # We manually need to assign them the biggest possible scale.
     idx = N.where(sm == 0);
-    sm(idx) = 8;
+    sm[idx] = 8;
 
 
     v1Final = N.zeros(N.size(v,1), N.size(v,2));
@@ -94,7 +93,7 @@ def reinhardLocal( hdr, saturation, eps, phi ):
 
 
     # Do the actual tonemapping
-    luminanceCompressed = luminanceMap ./ (1 + v1Final);
+    luminanceCompressed = N.divide(luminanceMap, (1 + v1Final));
 
     ldrPic = N.zeros(N.size(hdr));
 
@@ -105,7 +104,7 @@ def reinhardLocal( hdr, saturation, eps, phi ):
         # (hdr(:,:,i) ./ luminance) MUST be between 0 an 1!!!!
         # ...but hdr often contains bigger values than luminance!!!???
         # so the resulting ldr pic needs to be clamped
-        ldrPic[:,:,i] = ((hdr[:,:,i] ./ luminanceMap) .^ saturation) .* luminanceCompressed;
+        ldrPic[:,:,i] = N.multiply(N.pow(N.divide(hdr[:,:,i], luminanceMap), saturation), luminanceCompressed);
 
     # clamp ldrPic to 1
     indices = N.where(ldrPic > 1);

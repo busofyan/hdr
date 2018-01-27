@@ -13,7 +13,7 @@ def gsolve(Z,B,l,w):
         for j in range(1, N.size(Z,2)):
             wij = w[Z(i, j) + 1];
             A[k, Z(i, j) + 1] = wij;
-            A[k,n + i] = -wij;
+            A[k,n + i] = - wij;
             b[k,1] = wij * B(i,j);
             k=k+1;
 
