@@ -5,7 +5,6 @@ from readDir import read_dir
 from weight import weight
 from makeImageMatrix import make_image_matrix
 
-
 dir_name = '../images/'
 [filenames, exposures, numExposures] = read_dir(dir_name)
 

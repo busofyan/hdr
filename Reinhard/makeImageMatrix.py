@@ -4,6 +4,7 @@ import cv2
 
 from sample import sample
 
+
 def make_image_matrix(dir_name, filenames, num_pixels):
     # number of exposures
     num_exposures = filenames.shape[0]

@@ -12,7 +12,7 @@ def read_dir(dirname):
         filenames.append(m)
         head, sep, tail = m.partition('.')
         dom_nom = [int(s) for s in head.split('_') if s.isdigit()]
-        exposures.append(dom_nom[0]/dom_nom[1])
+        exposures.append(dom_nom[0] / dom_nom[1])
 
     # Sort two Arrays by Indices
     exposures, filenames = zip(*sorted(zip(exposures, filenames)))
