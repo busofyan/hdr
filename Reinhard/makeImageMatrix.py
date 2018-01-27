@@ -20,7 +20,7 @@ def make_image_matrix(dir_name, filenames, num_pixels):
     # i.e. exactly the range of indices of zInput
     step = num_pixels / num_samples
 
-    sample_indices = N.floor(N.array(N.arange(0, num_pixels, step)))
+    sample_indices = N.floor(N.array(N.arange(1, num_pixels, step)))
     # sample_indices = N.append(sample_indices, [num_pixels]); # workaround
     sample_indices = sample_indices.astype(int);
 

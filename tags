@@ -123,7 +123,6 @@ phi	hdrTest.m	/^phi = 8;$/;"	v
 phi	main.m	/^phi = 8;$/;"	v
 readDir	readDir.m	/^function [filenames, exposures, numExposures] = readDir(dirName)$/;"	f
 read_dir	Reinhard/readDir.py	/^def read_dir(dirname):$/;"	f
-red	Reinhard/redChannelred.js	/^const red = [$/;"	C
 red	sample.m	/^    red = redChannel(sampleIndices);$/;"	v
 redChannel	sample.m	/^    redChannel = image(:,:,1);$/;"	v
 reinhardGlobal	reinhardGlobal.m	/^function [ ldrPic, ldrLuminanceMap ] = reinhardGlobal( hdr, a, saturation)$/;"	f
@@ -136,7 +135,6 @@ sample	Reinhard/sample.py	/^def sample(image, sample_indices):$/;"	f
 sample	sample.m	/^function [ red, green, blue ] = sample( image, sampleIndices )$/;"	f
 sampleIndices	makeImageMatrix.m	/^    sampleIndices = floor((1:step:numPixels));$/;"	v
 sampleIndices	makeImageMatrix.m	/^    sampleIndices = sampleIndices';$/;"	v
-sample_indices	Reinhard/redChannelred.js	/^const sample_indices = [$/;"	C
 saturatedPixelIndices	hdr.m	/^    saturatedPixelIndices = find(hdr == 0);$/;"	v
 saturatedPixels	hdr.m	/^        saturatedPixels = ones(size(image));    $/;"	v
 saturatedPixelsBlue	hdr.m	/^        saturatedPixelsBlue = find(image(:,:,3) == 255);$/;"	v
