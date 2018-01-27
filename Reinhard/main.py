@@ -13,6 +13,7 @@ print('Opening Test Images\n')
 tmp = cv2.imread(dir_name + filenames[0])
 
 num_pixels = tmp.shape[0] * tmp.shape[1]
+print(num_pixels);
 num_exposurs = filenames.shape[0]
 
 ## lamda smoothing factor

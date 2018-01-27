@@ -3,9 +3,14 @@ N.set_printoptions(threshold=N.nan)
 
 def sample(image, sample_indices):
 
-    # Takes the relevant samples of the input image I am not sure.... (matmul??)
+    print(sample_indices);
+    red_channel = image[:, :, 2];
+    print(red_channel);
+    red = red_channel[[0, 1, 2], [0]];
 
-    red_channel = image[:, :, 0]
+    # print('Picture Begin');
+    # print(red_channel);
+    # print('Picture End');
 
     #green_channel = image[:, :, 2]
     #green = N.matmul(green_channel, sample_indices)

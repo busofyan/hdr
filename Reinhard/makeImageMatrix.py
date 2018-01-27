@@ -19,8 +19,11 @@ def make_image_matrix(dir_name, filenames, num_pixels):
     # using ceil fits the indices into the range [1,numPixels+1],
     # i.e. exactly the range of indices of zInput
     step = num_pixels / num_samples
-    sample_indices = N.floor(N.array(N.arange(1., num_pixels, step)))
-    sample_indices = N.transpose(sample_indices)
+
+    sample_indices = N.floor(N.array(N.arange(1, num_pixels, step)))
+    sample_indices = N.append(sample_indices, [num_pixels]); # workaround
+    sample_indices = sample_indices.astype(int);
+    sample_indices = sample_indices.reshape((-1, 1));
 
     # allocate resulting matrices
     z_red = N.zeros((num_samples, num_exposures))
