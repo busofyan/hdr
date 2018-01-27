@@ -6,12 +6,18 @@
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/157918c6/
 A	gsolve.m	/^    A = zeros(size(Z,1)*size(Z,2)+n+1,n+size(Z,1));$/;"	v
+B	Reinhard/main.py	/^B = N.zeros((N.size(z_red), numExposures));$/;"	v
 B	hdrTest.m	/^B = log(exposures);$/;"	v
 B	main.m	/^B = zeros(size(zRed,1)*size(zRed,2), numExposures);$/;"	v
+N	Reinhard/gsolve.py	/^import numpy as N$/;"	I
 N	Reinhard/main.py	/^import numpy as N$/;"	I
 N	Reinhard/makeImageMatrix.py	/^import numpy as N$/;"	I
+N	Reinhard/makeLuminanceMap.py	/^import numpy as N$/;"	I
 N	Reinhard/readDir.py	/^import numpy as N$/;"	I
+N	Reinhard/reinhardGlobal.py	/^import numpy as N$/;"	I
+N	Reinhard/reinhardLocal.py	/^import numpy as N$/;"	I
 N	Reinhard/sample.py	/^import numpy as N$/;"	I
+a	Reinhard/main.py	/^a = 0.72;$/;"	v
 a	main.m	/^a = 0.72;$/;"	v
 alpha	reinhardLocal.m	/^    alpha = 1 \/ (2*sqrt(2));$/;"	v
 applyColor	applyColor.m	/^function [ ldrPic ] = applyColor( hdr, luminanceMapCompressed, saturation )$/;"	f
@@ -22,12 +28,14 @@ blueChannel	sample.m	/^    blueChannel = image(:,:,3);$/;"	v
 confDebvec	imageHDR.py	/^confDebvec = np.clip(resDebvec * 255, 0, 255).astype('uint8')$/;"	v
 confMertens	imageHDR.py	/^confMertens = np.clip(resMertens * 255, 0, 255).astype('uint8')$/;"	v
 confRobertson	imageHDR.py	/^confRobertson = np.clip(resRobertson * 255, 0, 255).astype('uint8')$/;"	v
+delta	Reinhard/reinhardGlobal.py	/^delta = 0.0001;$/;"	v
 delta	reinhardGlobal.m	/^delta = 0.0001;$/;"	v
 denominator	readDir.m	/^        denominator = filename(s(2):f(2));$/;"	v
 dim	hdr.m	/^        dim = size(image,1) * size(image,2);$/;"	v
 dirName	hdrTest.m	/^dirName = ('..\/pics\/sbahn\/small\/');$/;"	v
 dirName	main.m	/^dirName = ('..\/pics_window\/');$/;"	v
 dir_name	Reinhard/main.py	/^dir_name = '..\/images\/'$/;"	v
+eps	Reinhard/main.py	/^eps = 0.05;$/;"	v
 eps	hdrTest.m	/^eps = 0.1;$/;"	v
 eps	main.m	/^eps = 0.05;$/;"	v
 exposure	readDir.m	/^        exposure = str2num(nominator) \/ str2num(denominator);$/;"	v
@@ -45,6 +53,7 @@ gaussKernelHorizontal	reinhardLocal.m	/^        gaussKernelHorizontal = fspecial
 gaussKernelVertical	reinhardLocal.m	/^        gaussKernelVertical = fspecial('gaussian', [1 kernelSize], sigma);$/;"	v
 green	sample.m	/^    green = greenChannel(sampleIndices);$/;"	v
 greenChannel	sample.m	/^    greenChannel = image(:,:,2);$/;"	v
+gsolve	Reinhard/gsolve.py	/^def gsolve(Z,B,l,w):$/;"	f
 gsolve	gsolve.m	/^function [g,lE]=gsolve(Z,B,l,w)$/;"	f
 hdr	hdr.m	/^        hdr = hdr + (wij .* m);$/;"	v
 hdr	hdr.m	/^        hdr = hdr .* saturatedPixels;$/;"	v
@@ -54,6 +63,7 @@ hdr	hdr.m	/^    hdr = zeros(size(image));$/;"	v
 hdr	hdr.m	/^function [ hdr ] = hdr( filenames, gRed, gGreen, gBlue, w, dt )$/;"	f
 hdr	hdrTest.m	/^hdr = hdr(filenames, gRed, gGreen, gBlue, weights, B);$/;"	v
 hdrDebvec	imageHDR.py	/^hdrDebvec = mDebvec.process(images, times=belichtungsZeit.copy())$/;"	v
+hdrMap	Reinhard/main.py	/^hdrMap = hdr(filenames, gRed, gGreen, gBlue, weights, B);$/;"	v
 hdrMap	main.m	/^hdrMap = hdr(filenames, gRed, gGreen, gBlue, weights, B);$/;"	v
 hdrRobertson	imageHDR.py	/^hdrRobertson = mRobertson.process(images, times=belichtungsZeit.copy())$/;"	v
 i	readDir.m	/^        i = i + 1;$/;"	v
@@ -72,12 +82,14 @@ img6	imageHDR.py	/^img6 = cv2.imread('images\/window_exp_1_60.jpg')$/;"	v
 img7	imageHDR.py	/^img7 = cv2.imread('images\/window_exp_1_250.jpg')$/;"	v
 img8	imageHDR.py	/^img8 = cv2.imread('images\/window_exp_1_1000.jpg')$/;"	v
 img9	imageHDR.py	/^img9 = cv2.imread('images\/window_exp_1_4000.jpg')$/;"	v
+indices	Reinhard/reinhardGlobal.py	/^indices = find(ldrPic > 1);$/;"	v
 indices	applyColor.m	/^    indices = find(ldrPic > 1);$/;"	v
 indices	reinhardGlobal.m	/^indices = find(ldrPic > 1);$/;"	v
 indices	reinhardLocal.m	/^    indices = find(ldrPic > 1);$/;"	v
 k	gsolve.m	/^    k = 1;$/;"	v
 kernelRadius	reinhardLocal.m	/^        kernelRadius = ceil(2*sigma);$/;"	v
 kernelSize	reinhardLocal.m	/^        kernelSize = 2*kernelRadius+1;$/;"	v
+key	Reinhard/reinhardGlobal.py	/^key = N.exp((1 \/ numPixels) * (N.sum(N.sum(N.log(luminanceMap + delta)))));$/;"	v
 key	hdrTest.m	/^key = 0.18;$/;"	v
 key	reinhardGlobal.m	/^key = exp((1\/numPixels)*(sum(sum(log(luminanceMap + delta)))));$/;"	v
 key	reinhardLocal.m	/^    key = 0.18;$/;"	v
@@ -85,13 +97,18 @@ l	Reinhard/main.py	/^l = 50$/;"	v
 l	main.m	/^l = 50;$/;"	v
 lE	gsolve.m	/^    lE = x(n+1:size(x,1));/;"	v
 ldrLinear	linearTonemapping.m	/^    ldrLinear = applyColor(hdr, luminanceMapLinear, 0.5);$/;"	v
+ldrLuminanceMap	Reinhard/reinhardGlobal.py	/^ldrLuminanceMap = scaledLuminance .\/ (scaledLuminance + 1);$/;"	v
 ldrLuminanceMap	reinhardGlobal.m	/^ldrLuminanceMap = scaledLuminance .\/ (scaledLuminance + 1);$/;"	v
+ldrPic	Reinhard/reinhardGlobal.py	/^ldrPic = N.zeros(N.size(hdr));$/;"	v
 ldrPic	applyColor.m	/^    ldrPic = zeros(size(hdr));$/;"	v
 ldrPic	reinhardGlobal.m	/^ldrPic = zeros(size(hdr));$/;"	v
 ldrPic	reinhardLocal.m	/^    ldrPic = zeros(size(hdr));$/;"	v
 linearTonemapping	linearTonemapping.m	/^function [ ldrLinear ] = linearTonemapping( hdr )$/;"	f
+luminance	Reinhard/main.py	/^luminance = 0.2125 * hdrMap[:,:,0] + 0.7154 * hdrMap[:,:,1] + 0.0721 * hdrMap[:,:,2];$/;"	v
 luminance	main.m	/^luminance = 0.2125 * hdrMap(:,:,1) + 0.7154 * hdrMap(:,:,2) + 0.0721 * hdrMap(:,:,3);$/;"	v
 luminanceCompressed	reinhardLocal.m	/^    luminanceCompressed = luminanceMap .\/ (1 + v1Final);$/;"	v
+luminanceMap	Reinhard/makeLuminanceMap.py	/^luminanceMap = 0.2125 * image[:,:,1] + 0.7154 * image[:,:,2] + 0.0721 * image[:,:,3];$/;"	v
+luminanceMap	Reinhard/reinhardGlobal.py	/^luminanceMap = makeLuminanceMap(hdr);$/;"	v
 luminanceMap	applyColor.m	/^    luminanceMap = makeLuminanceMap(hdr);$/;"	v
 luminanceMap	linearTonemapping.m	/^    luminanceMap = makeLuminanceMap(hdr);$/;"	v
 luminanceMap	makeLuminanceMap.m	/^luminanceMap = 0.2125 * image(:,:,1) + 0.7154 * image(:,:,2) + 0.0721 * image(:,:,3);$/;"	v
@@ -101,6 +118,7 @@ luminanceMapLinear	linearTonemapping.m	/^    luminanceMapLinear = luminanceMap \
 mDebvec	imageHDR.py	/^mDebvec = cv2.createMergeDebevec()$/;"	v
 mRobertson	imageHDR.py	/^mRobertson = cv2.createMergeRobertson()$/;"	v
 makeImageMatrix	makeImageMatrix.m	/^function [ zRed, zGreen, zBlue, sampleIndices ] = makeImageMatrix( filenames, numPixels )$/;"	f
+makeLuminanceMap	Reinhard/makeLuminanceMap.py	/^def makeLuminanceMap( image ):$/;"	f
 makeLuminanceMap	makeLuminanceMap.m	/^function [ luminanceMap ] = makeLuminanceMap( image )$/;"	f
 make_image_matrix	Reinhard/makeImageMatrix.py	/^def make_image_matrix(dir_name, filenames, num_pixels):$/;"	f
 map	imageHDR.py	/^map = cv2.createTonemapDurand(gamma=2.2)$/;"	v
@@ -114,18 +132,22 @@ numExposures	hdr.m	/^    numExposures = size(filenames,2);$/;"	v
 numExposures	main.m	/^numExposures = size(filenames,2);$/;"	v
 numExposures	makeImageMatrix.m	/^    numExposures = size(filenames,2);$/;"	v
 numExposures	readDir.m	/^    numExposures = size(filenames,2);/;"	v
+numPixels	Reinhard/reinhardGlobal.py	/^numPixels = N.size(hdr,1) * N.size(hdr,2);$/;"	v
 numPixels	main.m	/^numPixels = size(tmp,1) * size(tmp,2);$/;"	v
 numPixels	reinhardGlobal.m	/^numPixels = size(hdr,1) * size(hdr,2);$/;"	v
 numSamples	makeImageMatrix.m	/^    numSamples = ceil(255*2 \/ (numExposures - 1)) * 2;$/;"	v
 num_exposurs	Reinhard/main.py	/^num_exposurs = filenames.shape[0]$/;"	v
 num_pixels	Reinhard/main.py	/^num_pixels = tmp.shape[0] * tmp.shape[1]$/;"	v
+phi	Reinhard/main.py	/^phi = 8;$/;"	v
 phi	hdrTest.m	/^phi = 8;$/;"	v
 phi	main.m	/^phi = 8;$/;"	v
 readDir	readDir.m	/^function [filenames, exposures, numExposures] = readDir(dirName)$/;"	f
 read_dir	Reinhard/readDir.py	/^def read_dir(dirname):$/;"	f
 red	sample.m	/^    red = redChannel(sampleIndices);$/;"	v
 redChannel	sample.m	/^    redChannel = image(:,:,1);$/;"	v
+reinhardGlobal	Reinhard/reinhardGlobal.py	/^def reinhardGlobal( hdr, a, saturation):$/;"	f
 reinhardGlobal	reinhardGlobal.m	/^function [ ldrPic, ldrLuminanceMap ] = reinhardGlobal( hdr, a, saturation)$/;"	f
+reinhardLocal	Reinhard/reinhardLocal.py	/^def reinhardLocal( hdr, saturation, eps, phi ):$/;"	f
 reinhardLocal	reinhardLocal.m	/^function [ ldrPic, luminanceCompressed, v, v1Final, sm ] = reinhardLocal( hdr, saturation, eps, /;"	f
 resDebvec	imageHDR.py	/^resDebvec = map.process(hdrDebvec.copy())$/;"	v
 resMertens	imageHDR.py	/^resMertens = mergeMertens.process(images)$/;"	v
@@ -140,8 +162,10 @@ saturatedPixels	hdr.m	/^        saturatedPixels = ones(size(image));    $/;"	v
 saturatedPixelsBlue	hdr.m	/^        saturatedPixelsBlue = find(image(:,:,3) == 255);$/;"	v
 saturatedPixelsGreen	hdr.m	/^        saturatedPixelsGreen = find(image(:,:,2) == 255);$/;"	v
 saturatedPixelsRed	hdr.m	/^        saturatedPixelsRed = find(image(:,:,1) == 255);$/;"	v
+saturation	Reinhard/main.py	/^saturation = 0.6;$/;"	v
 saturation	hdrTest.m	/^saturation = 0.6;$/;"	v
 saturation	main.m	/^saturation = 0.6;$/;"	v
+scaledLuminance	Reinhard/reinhardGlobal.py	/^scaledLuminance = luminanceMap * (a\/key);$/;"	v
 scaledLuminance	reinhardGlobal.m	/^scaledLuminance = luminanceMap * (a\/key);$/;"	v
 sigma	reinhardLocal.m	/^        sigma = alpha * s;$/;"	v
 sm	reinhardLocal.m	/^    sm = zeros(size(v,1), size(v,2));$/;"	v

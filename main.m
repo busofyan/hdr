@@ -38,6 +38,7 @@ fprintf('Opening test image\n');
 tmp = imread(filenames{1});
 
 numPixels = size(tmp,1) * size(tmp,2);
+print(numPixels);
 numExposures = size(filenames,2);
 
 
