@@ -3,10 +3,19 @@ N.set_printoptions(threshold=N.nan)
 
 def sample(image, sample_indices):
 
-    print(sample_indices);
     red_channel = image[:, :, 2];
-    print(red_channel);
-    red = red_channel[[0, 1, 2], [0]];
+
+    print('Picture Begin');
+    red_channel = red_channel.flatten();
+    print('sample_indices: ', sample_indices);
+    red = red_channel[sample_indices - 1];
+    print('red: ', red);
+    print('Picture End');
+
+    # print('Picture Begin');
+    # print('redChannel: ', red_channel);
+    # print('red: ', red);
+    # print('Picture End');
 
     # print('Picture Begin');
     # print(red_channel);
