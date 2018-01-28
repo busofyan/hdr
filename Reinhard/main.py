@@ -1,6 +1,9 @@
 import cv2
 import numpy as N
 import math
+import gsolve
+import hdr
+import reinhardGlobal
 
 from readDir import read_dir
 from weight import weight
@@ -38,6 +41,7 @@ B = N.zeros((N.size(z_red), numExposures));
 
 print('Creating exposures matrix B\n');
 for i in range(0, numExposures):
+    print(float(exposures[i]));
     B[:,i] = math.log(exposures[i]);
 
 print(B)
@@ -45,11 +49,12 @@ print(B)
 # % solve the system for each color channel
 print('Solving for red channel\n');
 [gRed, lERed] = gsolve(z_red, B, l, weights);
+print(gsolve(z_red, B, l, weights));
+
 print('Solving for green channel\n')
-
 [gGreen, lEGreen] = gsolve(z_green, B, l, weights);
-print('Solving for blue channel\n')
 
+print('Solving for blue channel\n')
 [gBlue, lEBlue] = gsolve(z_blue, B, l, weights);
  
 # compute the hdr radiance map
@@ -66,7 +71,7 @@ print('Tonemapping - Reinhard local operator\n');
 saturation = 0.6;
 eps = 0.05;
 phi = 8;
-[ldrLocal, luminanceLocal, v, v1Final, sm ]  = reinhardLocal(hdrMap, saturation, eps, phi);
+#[ldrLocal, luminanceLocal, v, v1Final, sm ]  = reinhardLocal(hdrMap, saturation, eps, phi);
 
 # apply Reinhard global tonemapping oparator to the hdr radiance map
 print('Tonemapping - Reinhard global operator\n');

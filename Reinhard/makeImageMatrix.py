@@ -13,7 +13,7 @@ def make_image_matrix(dir_name, filenames, num_pixels):
     # We need N(P-1) > (Zmax - Zmin)
     # Assuming the maximum (Zmax - Zmin) = 255,
     # N = (255 * 2) / (P-1) clearly fulfills this requirement
-    num_samples = int(N.ceil(255 * 2 / (num_exposures - 1)) * 2)
+    num_samples = int(N.ceil(255.0 * 2.0 / (num_exposures - 1.0)) * 2.0)
 
     # create a random sampling matrix, telling us which
     # pixels of the original image we want to sample

@@ -39,7 +39,7 @@ def reinhardLocal( hdr, saturation, eps, phi ):
         v1[:,:,scale] = conv2(v1[:,:,scale], gaussKernelVertical, 'same');
 
     for i in range(1, 8):
-        v[:,:,i] = abs((v1[:,:,i]) - v1[:,:,i+1]) ./ ((2^phi) * key / (s^2) + v1[:,:,i]);    
+        v[:,:,i] = N.divide(N.absolute((v1[:,:,i]) - v1[:,:,i+1]), ((2^phi) * key / (s^2) + v1[:,:,i]));
 
 
     sm = N.zeros(N.size(v, 1), N.size(v, 2));
