@@ -12,6 +12,7 @@ from makeImageMatrix import make_image_matrix
 dir_name = '../images/'
 [filenames, exposures, numExposures] = read_dir(dir_name)
 
+
 print('Opening Test Images\n')
 tmp = cv2.imread(dir_name + filenames[0])
 
@@ -41,15 +42,11 @@ B = N.zeros((N.size(z_red), numExposures));
 
 print('Creating exposures matrix B\n');
 for i in range(0, numExposures):
-    print(float(exposures[i]));
     B[:,i] = math.log(exposures[i]);
 
-print(B)
- 
 # % solve the system for each color channel
 print('Solving for red channel\n');
 [gRed, lERed] = gsolve(z_red, B, l, weights);
-print(gsolve(z_red, B, l, weights));
 
 print('Solving for green channel\n')
 [gGreen, lEGreen] = gsolve(z_green, B, l, weights);
