@@ -8,10 +8,10 @@ from readDir import read_dir
 from weight import weight
 from makeImageMatrix import make_image_matrix
 from gsolve import gsolve
+from hdr import hdr
 
 dir_name = '../images/'
 [filenames, exposures, numExposures] = read_dir(dir_name)
-
 
 print('Opening Test Images\n')
 tmp = cv2.imread(dir_name + filenames[0])

@@ -1,5 +1,5 @@
 import numpy as N
-import math
+from readDir import read_dir
 import cv2
 
 
@@ -11,11 +11,14 @@ import cv2
 
 def hdr(filenames, gRed, gGreen, gBlue, w, dt):
 
-
     num_exposures = filenames.shape[0]
 
     # read the first image to get the width and height information
-    image = cv2.imread(filenames[0])
+    dir_name = '../images/'
+    [filenames, exposures, numExposures] = read_dir(dir_name)
+
+    print('Opening Test Images\n');
+    image = cv2.imread(dir_name + filenames[0]);
 
     # pre - allocate resulting hdr image
     hdr = N.zeros(N.size(image));
@@ -27,8 +30,7 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
         print('Adding picture %i of %i \n', i, num_exposures);
 
         image = N.double(cv2.imread(filenames[0]));
-
-        wij = w(image + 1);
+        wij = w[image + 1];
         sum = sum + wij;
 
         m[:, :, 2] = (gRed(image[:, :, 2] + 1) - dt(1, i));
