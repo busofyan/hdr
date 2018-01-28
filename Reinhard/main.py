@@ -1,13 +1,13 @@
 import cv2
 import numpy as N
 import math
-import gsolve
 import hdr
 import reinhardGlobal
 
 from readDir import read_dir
 from weight import weight
 from makeImageMatrix import make_image_matrix
+from gsolve import gsolve
 
 dir_name = '../images/'
 [filenames, exposures, numExposures] = read_dir(dir_name)
