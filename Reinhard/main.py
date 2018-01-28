@@ -8,7 +8,7 @@ from makeImageMatrix import make_image_matrix
 from gsolve import gsolve
 from hdr import hdr
 from reinhardGlobal import reinhardGlobal
-from reinhardLocal import reinhardLocal
+#from reinhardLocal import reinhardLocal
 
 dir_name = '../images/'
 [filenames, exposures, numExposures] = read_dir(dir_name)
