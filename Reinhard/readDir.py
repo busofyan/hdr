@@ -9,13 +9,14 @@ def read_dir(dirname):
 
     # Get Filenames and dom + nom for calculating the exposure times
     for m in file_list:
-        filenames.append(m)
+        filenames.append(dirname+m)
         head, sep, tail = m.partition('.')
         dom_nom = [float(s) for s in head.split('_') if s.isdigit()]
         exposures.append(dom_nom[0] / dom_nom[1])
 
     # Sort two Arrays by Indices
     exposures, filenames = zip(*sorted(zip(exposures, filenames)))
+
 
     # Revers Array to get Descending Order
     desc_exposures = exposures[::-1]

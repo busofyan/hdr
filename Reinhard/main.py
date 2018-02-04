@@ -10,7 +10,8 @@ from hdr import hdr
 from reinhardGlobal import reinhardGlobal
 #from reinhardLocal import reinhardLocal
 
-dir_name = '../images/'
+
+dir_name = '../images_130/'
 [filenames, exposures, numExposures] = read_dir(dir_name)
 
 
@@ -18,7 +19,6 @@ print('Opening Test Images\n')
 tmp = cv2.imread(dir_name + filenames[0])
 
 num_pixels = tmp.shape[0] * tmp.shape[1]
-print(num_pixels);
 num_exposurs = filenames.shape[0]
 
 ## lamda smoothing factor
@@ -36,10 +36,12 @@ for i in range(1, 257):
 # load and sample the images
 [z_red, z_green, z_blue, sampleIndices] = make_image_matrix(dir_name, filenames, num_pixels)
 
+
 #
 ## tmp = [cv2.imread(dir_name + fn) for fn in filenames]
 
 B = N.zeros((N.size(z_red), numExposures));
+
 
 print('Creating exposures matrix B\n');
 for i in range(0, numExposures):
@@ -48,6 +50,7 @@ for i in range(0, numExposures):
 # % solve the system for each color channel
 print('Solving for red channel\n');
 [gRed, lERed] = gsolve(z_red, B, l, weights);
+#print(gRed);
 
 print('Solving for green channel\n')
 [gGreen, lEGreen] = gsolve(z_green, B, l, weights);

@@ -19,11 +19,11 @@ def make_image_matrix(dir_name, filenames, num_pixels):
     # pixels of the original image we want to sample
     # using ceil fits the indices into the range [1,numPixels+1],
     # i.e. exactly the range of indices of zInput
-    step = num_pixels / num_samples
+    step = N.float128(num_pixels) / N.float128(num_samples)
 
-    sample_indices = N.floor(N.array(N.arange(0, num_pixels, step)))
-    # sample_indices = N.append(sample_indices, [num_pixels]); # workaround
+    sample_indices = N.floor(N.array(N.arange(0.0, N.float128(num_pixels), step)))
     sample_indices = sample_indices.astype(int);
+
 
     # allocate resulting matrices
     z_red = N.zeros((num_samples, num_exposures))
@@ -35,7 +35,8 @@ def make_image_matrix(dir_name, filenames, num_pixels):
         image = cv2.imread(dir_name + filenames[i])
 
         # sample the image for each color channel
-        [z_red_temp, z_green_temp, z_blue_temp] = sample(image, sample_indices)
+        [z_red_temp, z_green_temp, z_blue_temp] = sample(image, sample_indices, num_pixels)
+
 
         # build the resulting, small image consisting
         # of samples of the original image

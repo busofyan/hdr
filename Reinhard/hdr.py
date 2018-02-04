@@ -13,12 +13,8 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
 
     num_exposures = filenames.shape[0]
 
-    # read the first image to get the width and height information
-    dir_name = '../images/'
-    [filenames, exposures, numExposures] = read_dir(dir_name)
-
     print('Opening Test Images\n');
-    image = cv2.imread(dir_name + filenames[0]);
+    image = cv2.imread(filenames[0]);
 
     # pre - allocate resulting hdr image
     hdr = N.zeros(image.shape[0]);
@@ -26,11 +22,10 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
     m = [];
 
     for i in range(0, num_exposures):
-
         print('Adding picture %i of %i \n', i, num_exposures);
-        image = cv2.imread(dir_name + filenames[i]);
+        image = cv2.imread(filenames[i]);
 
-        print(w);
+        #print(w);
         wij = w[image + 1];
         sum = sum + wij;
 
