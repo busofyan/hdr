@@ -12,8 +12,8 @@ def gsolve(Z,B,l,w):
     for i in range(0, Z.shape[0]):
         for j in range(0, Z.shape[1]):
             wij = w[(int(Z[i, j]))];
-            A[k, (Z[i, j])] = wij;
-            A[k,(n + i)] = - wij;
+            A[k, (int(Z[i, j]))] = wij;
+            A[k, (n + i)] = - wij;
             b[k] = N.multiply(wij, B[i,j]);
             k = k + 1;
 

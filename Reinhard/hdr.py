@@ -17,35 +17,57 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
     image = cv2.imread(filenames[0]);
 
     # pre - allocate resulting hdr image
-    hdr = N.zeros(image.shape[0]);
-    sum = N.zeros(image.shape[0]);
-    m = [];
+    hdr = N.zeros((image.shape[0],image.shape[1]));
+    sum_red = N.zeros((image.shape[0],image.shape[1]));
+    sum_green = N.zeros((image.shape[0], image.shape[1]));
+    sum_blue = N.zeros((image.shape[0], image.shape[1]));
+    wij_red = N.zeros((image.shape[0],image.shape[1]));
+    wij_green = N.zeros((image.shape[0], image.shape[1]));
+    wij_blue = N.zeros((image.shape[0], image.shape[1]));
+
+    m_red = N.zeros((image.shape[0], image.shape[1]));
+    m_green = N.zeros((image.shape[0], image.shape[1]));
+    m_blue = N.zeros((image.shape[0], image.shape[1]));
 
     for i in range(0, num_exposures):
-        print('Adding picture %i of %i \n', i, num_exposures);
+        print('Adding picture', i ,'of', num_exposures);
         image = cv2.imread(filenames[i]);
+        print(filenames[i])
 
-        #print(w);
-        wij = w[image + 1];
-        sum = sum + wij;
+        red_channel = image[:, :, 2];
+        green_channel = image[:, :, 1];
+        blue_channel = image[:, :, 0];
 
-        m[:, :, 2] = (gRed(image[:, :, 2] + 1) - dt(1, i));
-        m[:, :, 1] = (gGreen(image[:, :, 1] + 1) - dt(1, i));
-        m[:, :, 0] = (gBlue(image[:, :, 0] + 1) - dt(1, i));
+        for a in range(0, image.shape[0]):
+            for b in range(0, image.shape[1]):
+                wij_red[a,b] = w[255-red_channel[a, b]];
+                wij_green[a, b] = w[255 - green_channel[a, b]];
+                wij_blue[a, b] = w[255 - blue_channel[a, b]];
+
+        sum_red = N.add(sum_red , wij_red);
+        sum_green = N.add(sum_green, wij_green);
+        sum_blue = N.add(sum_blue, wij_blue);
+
+
+        m_red = [gRed[red_channel] - dt[0, i]];
+        m_green = (gGreen[green_channel + 1] - dt[0, i]);
+        m_blue = (gBlue[blue_channel + 1] - dt[0, i]);
+
+        print(m_red);
 
         # If a pixel is saturated, its information and that gathered
         # from all prior pictures with longer exposure times is unreliable.
         # Thus we ignore its influence on the weighted sum(influence of the
         # same pixel from prior pics with longer exposure time ignored as well)
 
-        saturatedPixels = N.ones(N.size(image));
+        saturatedPixels = N.ones((image.shape[0],image.shape[1]));
 
         saturatedPixelsRed = N.where(image[:, :, 2] == 255);
         saturatedPixelsGreen = N.where(image[:, :, 1] == 255);
         saturatedPixelsBlue = N.where(image[:, :, 0] == 255);
 
         # Mark the saturated pixels from a certain channel in * all three * channels
-        dim = N.size(image, 1) * N.size(image, 2);
+        dim = image.shape[0] * image.shape[1];
 
         saturatedPixels[saturatedPixelsRed] = 0;
         saturatedPixels[saturatedPixelsRed + dim] = 0;

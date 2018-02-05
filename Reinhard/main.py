@@ -50,7 +50,6 @@ for i in range(0, numExposures):
 # % solve the system for each color channel
 print('Solving for red channel\n');
 [gRed, lERed] = gsolve(z_red, B, l, weights);
-#print(gRed);
 
 print('Solving for green channel\n')
 [gGreen, lEGreen] = gsolve(z_green, B, l, weights);
