@@ -36,12 +36,8 @@ for i in range(1, 257):
 # load and sample the images
 [z_red, z_green, z_blue, sampleIndices] = make_image_matrix(dir_name, filenames, num_pixels)
 
-
-#
-## tmp = [cv2.imread(dir_name + fn) for fn in filenames]
-
 B = N.zeros((N.size(z_red), numExposures));
-
+print("ging shcnell")
 
 print('Creating exposures matrix B\n');
 for i in range(0, numExposures):
@@ -56,7 +52,7 @@ print('Solving for green channel\n')
 
 print('Solving for blue channel\n')
 [gBlue, lEBlue] = gsolve(z_blue, B, l, weights);
- 
+
 # compute the hdr radiance map
 print('Computing hdr image\n')
 hdrMap = hdr(filenames, gRed, gGreen, gBlue, weights, B);

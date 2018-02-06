@@ -11,6 +11,7 @@ def markSaturatedPixels(saturatedPixels, saturatedPixelsRed):
 
     for i in range(0, tempValues.__len__()):
         for j in range(0, saturatedPixelsRed.__len__()):
+
             if i == saturatedPixelsRed[j]:
                 tempValues[i] = 0;
 

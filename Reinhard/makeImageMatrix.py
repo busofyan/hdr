@@ -1,5 +1,4 @@
 import numpy as N
-import math
 import cv2
 
 from sample import sample
@@ -24,6 +23,9 @@ def make_image_matrix(dir_name, filenames, num_pixels):
     sample_indices = N.floor(N.array(N.arange(0.0, N.float128(num_pixels), step)))
     sample_indices = sample_indices.astype(int);
 
+    #sample_matrix = N.arange(150 % 14).reshape(10, 15)
+    #print(sample_matrix)
+
 
     # allocate resulting matrices
     z_red = N.zeros((num_samples, num_exposures))
@@ -33,10 +35,8 @@ def make_image_matrix(dir_name, filenames, num_pixels):
     for i in range(0, num_exposures):
         # read the nth image
         image = cv2.imread(dir_name + filenames[i])
-
         # sample the image for each color channel
         [z_red_temp, z_green_temp, z_blue_temp] = sample(image, sample_indices, num_pixels)
-
 
         # build the resulting, small image consisting
         # of samples of the original image
