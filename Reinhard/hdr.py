@@ -38,8 +38,8 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
         sum[0, :, :] = N.add(sum[0, :, :], wij[0, :, :]);
 
         N.putmask(m[2, :, :], m[2, :, :] > -1, gRed[image[:, :, 2]] - dt[0, i])
-        N.putmask(m[1, :, :], m[1, :, :] > -1, gRed[image[:, :, 1]] - dt[0, i])
-        N.putmask(m[0, :, :], m[0, :, :] > -1, gRed[image[:, :, 0]] - dt[0, i])
+        N.putmask(m[1, :, :], m[1, :, :] > -1, gGreen[image[:, :, 1]] - dt[0, i])
+        N.putmask(m[0, :, :], m[0, :, :] > -1, gBlue[image[:, :, 0]] - dt[0, i])
 
         # If a pixel is saturated, its information and that gathered
         # from all prior pictures with longer exposure times is unreliable.
@@ -50,7 +50,6 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
         [saturatedPixels] = markSaturatedPixels(saturatedPixels, image[:, :, 2]);
         [saturatedPixels] = markSaturatedPixels(saturatedPixels, image[:, :, 1]);
         [saturatedPixels] = markSaturatedPixels(saturatedPixels, image[:, :, 0]);
-        print(saturatedPixels)
 
         # Mark the saturated pixels from a certain channel in * all three * channels
         dim = image.shape[0] * image.shape[1];
@@ -67,20 +66,16 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
     # with the smallest exposure time still are
     # saturated we approximate the radiance only from that picture
     # instead of taking the weighted sum
-    saturatedPixelIndices = N.where(hdr == 0);
-    #print(saturatedPixelIndices);
+    hdr = N.where((hdr == 0), m, hdr)
 
     # Don't multiply with the weights since they are zero for saturated
     # pixels.m contains the logRadiance value from the last pic, that
     # one with the longest exposure time.
-    #hdr[saturatedPixelIndices] = m[saturatedPixelIndices];
 
     # Fix the sum for those pixels to avoid division by zero
-    #sum[saturatedPixelIndices] = 1;
+    sum = N.where((hdr == 0), 1, sum)
 
     # normalize
-    #hdr = N.divide(hdr, sum);
-    # AUCH WIEDER ./
-    #hdr = N.exp(hdr);
-
+    hdr = hdr / sum;
+    hdr = N.exp(hdr);
     return [hdr];

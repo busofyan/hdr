@@ -37,7 +37,6 @@ for i in range(1, 257):
 [z_red, z_green, z_blue, sampleIndices] = make_image_matrix(dir_name, filenames, num_pixels)
 
 B = N.zeros((N.size(z_red), numExposures));
-print("ging shcnell")
 
 print('Creating exposures matrix B\n');
 for i in range(0, numExposures):
@@ -55,12 +54,19 @@ print('Solving for blue channel\n')
 
 # compute the hdr radiance map
 print('Computing hdr image\n')
-hdrMap = hdr(filenames, gRed, gGreen, gBlue, weights, B);
+[hdrMap] = hdr(filenames, gRed, gGreen, gBlue, weights, B);
 
 # compute the hdr luminance map from the hdr radiance map. It is needed as
 # an input for the Reinhard tonemapping operators.
 print('Computing luminance map\n');
-luminance = 0.2125 * hdrMap[:,:,0] + 0.7154 * hdrMap[:,:,1] + 0.0721 * hdrMap[:,:,2];
+luminance = N.zeros((tmp.shape[0], tmp.shape[1]));
+
+temp_red = N.multiply(hdrMap[:, :, 2], 0.2125)
+temp_green = N.multiply(hdrMap[:, :, 1], 0.7154)
+temp_blue = N.multiply(hdrMap[:, :, 0], 0.0721)
+
+N.putmask(luminance, luminance > -1, temp_red + temp_green + temp_blue)
+print(luminance)
 
 # apply Reinhard local tonemapping operator to the hdr radiance map
 print('Tonemapping - Reinhard local operator\n');
@@ -78,7 +84,7 @@ a = 0.72;
 # specify saturation of the resulting tonemapped image. See reinhardGlobal.m
 # for details
 saturation = 0.6;
-[ldrGlobal, luminanceGlobal ] = reinhardGlobal( hdrMap, a, saturation );
+[ldrGlobal, luminanceGlobal ] = reinhardGlobal(hdrMap, a, saturation);
 
 print('Finished!\n');
 
