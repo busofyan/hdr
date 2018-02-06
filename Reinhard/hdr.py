@@ -41,48 +41,19 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
         N.putmask(m[1, :, :], m[1, :, :] > -1, gRed[image[:, :, 1]] - dt[0, i])
         N.putmask(m[0, :, :], m[0, :, :] > -1, gRed[image[:, :, 0]] - dt[0, i])
 
-        print(m)
-
         # If a pixel is saturated, its information and that gathered
         # from all prior pictures with longer exposure times is unreliable.
         # Thus we ignore its influence on the weighted sum(influence of the
         # same pixel from prior pics with longer exposure time ignored as well)
-
-        saturatedPixelsRedTemp = [];
-        saturatedPixelsGreenTemp = [];
-        saturatedPixelsBlueTemp = [];
-        saturatedPixelsRed = [];
-        saturatedPixelsGreen = [];
-        saturatedPixelsBlue = [];
-
         saturatedPixels = N.ones((3, image.shape[0], image.shape[1]));
 
-
-        for i in range(0, image.shape[1]):
-            for j in range(0, image.shape[0]):
-                saturatedPixelsRedTemp.append(image[:, :, 2][j, i]);
-                saturatedPixelsGreenTemp.append(image[:, :, 1][j, i]);
-                saturatedPixelsBlueTemp.append(image[:, :, 0][j, i]);
-
-        for i in range(0, (saturatedPixelsRedTemp.__len__())):
-            if saturatedPixelsRedTemp[i] == 255:
-                saturatedPixelsRed.append(i);
-
-        for i in range(0, (saturatedPixelsGreenTemp.__len__())):
-            if saturatedPixelsGreenTemp[i] == 255:
-                saturatedPixelsGreen.append(i);
-
-        for i in range(0, (saturatedPixelsBlueTemp.__len__())):
-            if saturatedPixelsBlueTemp[i] == 255:
-                saturatedPixelsBlue.append(i);
+        [saturatedPixels] = markSaturatedPixels(saturatedPixels, image[:, :, 2]);
+        [saturatedPixels] = markSaturatedPixels(saturatedPixels, image[:, :, 1]);
+        [saturatedPixels] = markSaturatedPixels(saturatedPixels, image[:, :, 0]);
+        print(saturatedPixels)
 
         # Mark the saturated pixels from a certain channel in * all three * channels
         dim = image.shape[0] * image.shape[1];
-
-
-        [saturatedPixels] = markSaturatedPixels(saturatedPixels, saturatedPixelsRed);
-        [saturatedPixels] = markSaturatedPixels(saturatedPixels, saturatedPixelsGreen);
-        [saturatedPixels] = markSaturatedPixels(saturatedPixels, saturatedPixelsBlue);
 
         # add the weighted sum of the current pic to the resulting hdr radiance map
         hdr = hdr + N.multiply(wij, m);
