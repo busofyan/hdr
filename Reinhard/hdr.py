@@ -33,9 +33,9 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
                 wij[1, a, b] = w[255 - image[:, :, 1][a, b]];
                 wij[0, a, b] = w[255 - image[:, :, 0][a, b]];
 
-        sum[:, :, 2] = N.add(sum[:, :, 2], wij[:, :, 2]);
-        sum[:, :, 1] = N.add(sum[:, :, 1], wij[:, :, 1]);
-        sum[:, :, 0] = N.add(sum[:, :, 0], wij[:, :, 0]);
+        sum[2, :, :] = N.add(sum[2, :, :], wij[2, :, :]);
+        sum[1, :, :] = N.add(sum[1, :, :], wij[1, :, :]);
+        sum[0, :, :] = N.add(sum[0, :, :], wij[0, :, :]);
 
         for a in range(0, (image.shape[0])):
             for b in range(0, (image.shape[1])):
@@ -84,13 +84,13 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
 
         # add the weighted sum of the current pic to the resulting hdr radiance map
         hdr = hdr + N.multiply(wij, m);
-        # BIN MIR NICHT SICHER MATLAB SCHREIBWEISE .*
 
         # remove saturated pixels from the radiance map and the
         # sum(saturated pixels are zero in the saturatedPixels matrix, all others are one)
-        #hdr = N.mutiply(hdr, saturatedPixels);
-        #sum = N.mutiply(sum, saturatedPixels);
-        # BIN MIR NICHT SICHER MATLAB SCHREIBWEISE .*
+        hdr = N.multiply(hdr, saturatedPixels);
+        print(sum);
+        sum = N.multiply(sum, saturatedPixels);
+
 
         # For those pixels that even in the picture
         # with the smallest exposure time still are
