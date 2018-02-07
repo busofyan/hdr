@@ -8,9 +8,9 @@ from makeImageMatrix import make_image_matrix
 from gsolve import gsolve
 from hdr import hdr
 from reinhardGlobal import reinhardGlobal
-#from reinhardLocal import reinhardLocal
+from reinhardLocal import reinhardLocal
 
-dir_name = '../images/'
+dir_name = '../images_130/'
 [filenames, exposures, numExposures] = read_dir(dir_name)
 
 
@@ -70,7 +70,7 @@ print('Tonemapping - Reinhard local operator\n');
 saturation = 0.6;
 eps = 0.05;
 phi = 8;
-#[ldrLocal, luminanceLocal, v, v1Final, sm ]  = reinhardLocal(hdrMap, saturation, eps, phi);
+[ldrLocal, luminanceLocal, v, v1Final, sm ]  = reinhardLocal(hdrMap, saturation, eps, phi);
 
 # apply Reinhard global tonemapping oparator to the hdr radiance map
 print('Tonemapping - Reinhard global operator\n');
@@ -85,7 +85,6 @@ saturation = 0.6;
 
 #create a window for display.
 cv2.imshow("reinhardGlobal.jpg", ldrGlobal);
+cv2.imshow("reinhardLocal.jpg", ldrLocal);
+print('Finished! Enjoy...\n');
 cv2.waitKey(0)
-
-print('Finished!\n');
-

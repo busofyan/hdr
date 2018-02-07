@@ -50,6 +50,7 @@ def reinhardGlobal(hdr, a, saturation):
     #for i in range(0, hdr.shape[1]):
     #    for i in range(0, hdr.shape[1]):
 
+    # use dirty hack for matrix reshape operation
     img = N.zeros((hdr.shape[1], hdr.shape[2], 3));
     k = 0
     r = 0
