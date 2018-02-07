@@ -35,6 +35,9 @@ def make_image_matrix(dir_name, filenames, num_pixels):
     for i in range(0, num_exposures):
         # read the nth image
         image = cv2.imread(dir_name + filenames[i])
+        #print("image start")
+        #print(image)
+        #print("image stop")
         # sample the image for each color channel
         [z_red_temp, z_green_temp, z_blue_temp] = sample(image, sample_indices, num_pixels)
 

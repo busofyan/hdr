@@ -83,6 +83,11 @@ a = 0.72;
 # for details
 saturation = 0.6;
 [ldrGlobal, luminanceGlobal] = reinhardGlobal(hdrMap, a, saturation);
+print(ldrGlobal)
+#create a window for display.
+#cv2.namedWindow("Display window", 12345);
+#cv2.imshow("reinhardGlobal.jpg", ldrGlobal);
+#cv2.waitKey(0)
 
 print('Finished!\n');
 

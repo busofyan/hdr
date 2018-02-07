@@ -44,4 +44,7 @@ def reinhardGlobal(hdr, a, saturation):
     # clamp ldrPic to 1
     N.putmask(ldrPic, ldrPic > 1, 1)
 
+    # convert color values to RGB
+    ldrPic = N.ceil(ldrPic * 255)
+
     return [ldrPic, ldrLuminanceMap];

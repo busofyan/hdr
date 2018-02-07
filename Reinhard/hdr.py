@@ -72,7 +72,8 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
     # one with the longest exposure time.
 
     # Fix the sum for those pixels to avoid division by zero
-    sum = N.where((hdr == 0), 1, sum)
+    N.putmask(sum, sum == 0, 1);
+    #sum = N.where((hdr == 0), 1, sum)
 
     # normalize
     hdr = hdr / sum;
