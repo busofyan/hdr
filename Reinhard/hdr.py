@@ -24,7 +24,7 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
     m = N.zeros((3, image.shape[0], image.shape[1]));
 
     for i in range(0, num_exposures):
-        print('Adding picture', i ,'of', num_exposures);
+        print('Adding picture', i+1 ,'of', num_exposures);
         image = cv2.imread(filenames[i]);
         print(filenames[i])
         w = N.array(w)
@@ -37,9 +37,9 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
         sum[1, :, :] = N.add(sum[1, :, :], wij[1, :, :]);
         sum[0, :, :] = N.add(sum[0, :, :], wij[0, :, :]);
 
-        N.putmask(m[2, :, :], m[2, :, :] > -1, gRed[image[:, :, 2]] - dt[0, i])
-        N.putmask(m[1, :, :], m[1, :, :] > -1, gGreen[image[:, :, 1]] - dt[0, i])
-        N.putmask(m[0, :, :], m[0, :, :] > -1, gBlue[image[:, :, 0]] - dt[0, i])
+        N.putmask(m[2, :, :], m[2, :, :] < 257, gRed[image[:, :, 2]] - dt[0, i])
+        N.putmask(m[1, :, :], m[1, :, :] < 257, gGreen[image[:, :, 1]] - dt[0, i])
+        N.putmask(m[0, :, :], m[0, :, :] < 257, gBlue[image[:, :, 0]] - dt[0, i])
 
         # If a pixel is saturated, its information and that gathered
         # from all prior pictures with longer exposure times is unreliable.
@@ -56,7 +56,6 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
 
         # add the weighted sum of the current pic to the resulting hdr radiance map
         hdr = hdr + N.multiply(wij, m);
-
         # remove saturated pixels from the radiance map and the
         # sum(saturated pixels are zero in the saturatedPixels matrix, all others are one)
         hdr = N.multiply(hdr, saturatedPixels);

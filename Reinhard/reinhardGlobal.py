@@ -12,15 +12,14 @@
 # the resulting tonemapped image
 #
 import numpy as N
-import makeLuminanceMap
+from makeLuminanceMap import makeLuminanceMap
 
-def reinhardGlobal( hdr, a, saturation):
 
+def reinhardGlobal(hdr, a, saturation):
     print('Computing luminance map\n');
     luminanceMap = makeLuminanceMap(hdr);
 
-    numPixels = N.size(hdr,1) * N.size(hdr,2);
-
+    num_pixels = (hdr.shape[1] * hdr.shape[2])
     # small delta to avoid taking log(0) when encountering black pixels in the
     # luminance map
     delta = 0.0001;
@@ -28,29 +27,21 @@ def reinhardGlobal( hdr, a, saturation):
     # compute the key of the image, a measure of the
     # average logarithmic luminance, i.e. the subjective brightness of the image a human
     # would approximateley perceive
-    key = N.exp((1 / numPixels) * (N.sum(N.sum(N.log(luminanceMap + delta)))));
-
+    key = (N.exp((1.0/num_pixels) * N.sum(N.sum(N.log(N.add(luminanceMap, delta))))));
 
     # scale to desired brightness level as defined by the user
-    scaledLuminance = luminanceMap * (a/key);
+    scaledLuminance = N.multiply(luminanceMap, a/key)
 
     # all values are now mapped to the range [0,1]
     ldrLuminanceMap = N.divide(scaledLuminance, (scaledLuminance + 1));
 
-
-    ldrPic = N.zeros(N.size(hdr));
+    ldrPic = N.zeros((3, hdr.shape[1], hdr.shape[2]));
 
     # re-apply color according to Fattals paper "Gradient Domain High Dynamic
     # Range Compression"
-    for i in range(1, 3):
-        # (hdr(:,:,i) ./ luminance) MUST be between 0 an 1!!!!
-        # ...but hdr often contains bigger values than luminance!!!???
-        # so the resulting ldr pic needs to be clamped
-        ldrPic[:,:,i] = N.pow(N.multiply((N.divide((hdr[:,:,i], luminanceMap)), saturation)), ldrLuminanceMap);
+    ldrPic = N.multiply((N.power((hdr / luminanceMap), saturation)), ldrLuminanceMap)
 
     # clamp ldrPic to 1
-    indices = N.where(ldrPic > 1);
-    ldrPic[indices] = 1;
+    N.putmask(ldrPic, ldrPic > 1, 1)
 
-    return [ ldrPic, ldrLuminanceMap ];
-
+    return [ldrPic, ldrLuminanceMap];

@@ -61,12 +61,10 @@ print('Computing hdr image\n')
 print('Computing luminance map\n');
 luminance = N.zeros((tmp.shape[0], tmp.shape[1]));
 
-temp_red = N.multiply(hdrMap[:, :, 2], 0.2125)
-temp_green = N.multiply(hdrMap[:, :, 1], 0.7154)
-temp_blue = N.multiply(hdrMap[:, :, 0], 0.0721)
-
-N.putmask(luminance, luminance > -1, temp_red + temp_green + temp_blue)
-print(luminance)
+temp_red = hdrMap[2, :, :] * 0.2125
+temp_green = hdrMap[1, :, :] * 0.7154
+temp_blue = hdrMap[0, :, :] * 0.0721
+N.putmask(luminance, luminance < 257, temp_red + temp_green + temp_blue)
 
 # apply Reinhard local tonemapping operator to the hdr radiance map
 print('Tonemapping - Reinhard local operator\n');
@@ -84,7 +82,7 @@ a = 0.72;
 # specify saturation of the resulting tonemapped image. See reinhardGlobal.m
 # for details
 saturation = 0.6;
-[ldrGlobal, luminanceGlobal ] = reinhardGlobal(hdrMap, a, saturation);
+[ldrGlobal, luminanceGlobal] = reinhardGlobal(hdrMap, a, saturation);
 
 print('Finished!\n');
 
