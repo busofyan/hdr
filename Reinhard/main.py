@@ -10,8 +10,7 @@ from hdr import hdr
 from reinhardGlobal import reinhardGlobal
 #from reinhardLocal import reinhardLocal
 
-
-dir_name = '../images_130/'
+dir_name = '../images/'
 [filenames, exposures, numExposures] = read_dir(dir_name)
 
 
@@ -83,11 +82,10 @@ a = 0.72;
 # for details
 saturation = 0.6;
 [ldrGlobal, luminanceGlobal] = reinhardGlobal(hdrMap, a, saturation);
-print(ldrGlobal)
+
 #create a window for display.
-#cv2.namedWindow("Display window", 12345);
-#cv2.imshow("reinhardGlobal.jpg", ldrGlobal);
-#cv2.waitKey(0)
+cv2.imshow("reinhardGlobal.jpg", ldrGlobal);
+cv2.waitKey(0)
 
 print('Finished!\n');
 

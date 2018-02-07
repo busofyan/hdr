@@ -45,6 +45,24 @@ def reinhardGlobal(hdr, a, saturation):
     N.putmask(ldrPic, ldrPic > 1, 1)
 
     # convert color values to RGB
-    ldrPic = N.ceil(ldrPic * 255)
+    #ldrPic = N.ceil(ldrPic * 255)
 
-    return [ldrPic, ldrLuminanceMap];
+    #for i in range(0, hdr.shape[1]):
+    #    for i in range(0, hdr.shape[1]):
+
+    img = N.zeros((hdr.shape[1], hdr.shape[2], 3));
+    k = 0
+    r = 0
+    for i in range(0,hdr.shape[1]):
+        r = 0
+        for j in range(0, hdr.shape[2]):
+            axis = 0
+            img[k, r, axis] = ldrPic[0, :, :][k, r]
+            axis += 1
+            img[k, r, axis] = ldrPic[1, :, :][k, r]
+            axis += 1
+            img[k, r, axis] = ldrPic[2, :, :][k, r]
+            r += 1
+        k += 1
+
+    return [img, ldrLuminanceMap];
