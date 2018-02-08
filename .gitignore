@@ -1,6 +1,8 @@
 .idea/
 __pycache__
-._DS_Store
+.DS_Store
 ._.DS_Store
+.tern-port
 tags
 *.swp
+Reinhard/__pycache__
