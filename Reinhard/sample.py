@@ -1,6 +1,4 @@
-import numpy as N
-
-def sample(image, sample_indices, num_pixels):
+def sample(image, sample_indices):
     sample_indices = sample_indices.reshape((128));
 
     red_channel = image[:, :, 2];

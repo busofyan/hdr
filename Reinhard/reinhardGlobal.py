@@ -10,14 +10,14 @@
 #
 # saturation: a value between 0 and 1 defining the desired saturation of
 # the resulting tonemapped image
-#
-import numpy as N
+
+import numpy as np
 from makeLuminanceMap import makeLuminanceMap
 
 
 def reinhardGlobal(hdr, a, saturation):
     print('Computing luminance map\n');
-    luminanceMap = makeLuminanceMap(hdr);
+    [luminanceMap] = makeLuminanceMap(hdr);
 
     num_pixels = (hdr.shape[1] * hdr.shape[2])
     # small delta to avoid taking log(0) when encountering black pixels in the
@@ -27,34 +27,34 @@ def reinhardGlobal(hdr, a, saturation):
     # compute the key of the image, a measure of the
     # average logarithmic luminance, i.e. the subjective brightness of the image a human
     # would approximateley perceive
-    key = (N.exp((1.0/num_pixels) * N.sum(N.sum(N.log(N.add(luminanceMap, delta))))));
+    key = (np.exp((1.0 / num_pixels) * np.sum(np.sum(np.log(np.add(luminanceMap, delta))))));
 
     # scale to desired brightness level as defined by the user
-    scaledLuminance = N.multiply(luminanceMap, a/key)
+    scaledLuminance = np.multiply(luminanceMap, a / key)
 
     # all values are now mapped to the range [0,1]
-    ldrLuminanceMap = N.divide(scaledLuminance, (scaledLuminance + 1));
+    ldrLuminanceMap = np.divide(scaledLuminance, (scaledLuminance + 1));
 
-    ldrPic = N.zeros((3, hdr.shape[1], hdr.shape[2]));
+    ldrPic = np.zeros((3, hdr.shape[1], hdr.shape[2]));
 
     # re-apply color according to Fattals paper "Gradient Domain High Dynamic
     # Range Compression"
-    ldrPic = N.multiply((N.power((hdr / luminanceMap), saturation)), ldrLuminanceMap)
+    ldrPic = np.multiply((np.power((hdr / luminanceMap), saturation)), ldrLuminanceMap)
 
     # clamp ldrPic to 1
-    N.putmask(ldrPic, ldrPic > 1, 1)
+    np.putmask(ldrPic, ldrPic > 1, 1)
 
     # convert color values to RGB
-    #ldrPic = N.ceil(ldrPic * 255)
+    # ldrPic = np.ceil(ldrPic * 255)
 
-    #for i in range(0, hdr.shape[1]):
+    # for i in range(0, hdr.shape[1]):
     #    for i in range(0, hdr.shape[1]):
 
     # use dirty hack for matrix reshape operation
-    img = N.zeros((hdr.shape[1], hdr.shape[2], 3));
+    img = np.zeros((hdr.shape[1], hdr.shape[2], 3));
     k = 0
     r = 0
-    for i in range(0,hdr.shape[1]):
+    for i in range(0, hdr.shape[1]):
         r = 0
         for j in range(0, hdr.shape[2]):
             axis = 0

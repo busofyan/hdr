@@ -1,8 +1,8 @@
-import numpy as N
-import cv2
+import numpy as np
 
-def markSaturatedPixels(saturatedPixels, image):
-    image = N.where(image == 255, 0, 1)
-    saturatedPixels = N.where((image+saturatedPixels < 2) , 0, 1)
 
-    return [saturatedPixels];
+def markSaturatedPixels(saturated_pixels, image):
+    image = np.where(image == 255, 0, 1)
+    saturated_pixels = np.where((image + saturated_pixels < 2), 0, 1)
+
+    return [saturated_pixels];
