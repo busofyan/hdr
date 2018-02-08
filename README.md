@@ -1,3 +1,0 @@
-### HDR
-
-Docs following
