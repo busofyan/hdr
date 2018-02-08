@@ -31,5 +31,5 @@ def gsolve(Z, B, l, w):
     # Solve the system using SVD
     x = lin.lstsq(A, b)[0]
     g = x[0:n];
-    lE = x[n:x.shape[0]];
-    return [g, lE];
+    # lE = x[n:x.shape[0]];
+    return [g];

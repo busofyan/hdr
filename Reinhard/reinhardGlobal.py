@@ -44,13 +44,7 @@ def reinhardGlobal(hdr, a, saturation):
     # clamp ldrPic to 1
     np.putmask(ldrPic, ldrPic > 1, 1)
 
-    # convert color values to RGB
-    # ldrPic = np.ceil(ldrPic * 255)
-
-    # for i in range(0, hdr.shape[1]):
-    #    for i in range(0, hdr.shape[1]):
-
-    # use dirty hack for matrix reshape operation
+    # use dirty transform for matrix reshape operation
     img = np.zeros((hdr.shape[1], hdr.shape[2], 3));
     k = 0
     r = 0
@@ -66,4 +60,4 @@ def reinhardGlobal(hdr, a, saturation):
             r += 1
         k += 1
 
-    return [img, ldrLuminanceMap];
+    return [img];

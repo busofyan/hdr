@@ -40,4 +40,4 @@ def make_image_matrix(dir_name, filenames, num_pixels):
         z_green[:, i] = z_green_temp
         z_blue[:, i] = z_blue_temp
 
-    return [z_red, z_green, z_blue, sample_indices]
+    return [z_red, z_green, z_blue]

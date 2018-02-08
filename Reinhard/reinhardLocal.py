@@ -30,7 +30,6 @@ def reinhardLocal(hdr, saturation, eps, phi, tmp):
         # dicretize gaussian filter to a fixed np.size kernel.
         # a radius of 2*sigma should keep the error low enough...
         # luminance_map = np.array(luminance_map)
-
         if scale < 8:
             gaussKernelHorizontal = cv2.getGaussianKernel(int(kernelSize), sigma, cv2.CV_32F)
             v1[scale, :, :] = cv2.filter2D(luminance_map, -1, gaussKernelHorizontal)
@@ -48,7 +47,7 @@ def reinhardLocal(hdr, saturation, eps, phi, tmp):
             for scale in range(0, v.shape[0]):
                 # choose the biggest possible neighbourhood where v(i,j,scale)
                 # is still smaller than a certain epsilon.
-                # npote that we need to choose that neighbourhood which is
+                # Note that we need to choose that neighbourhood which is
                 # as big as possible but all smaller neighbourhoods also
                 # fulfill v(i,j,scale) < eps !!!
                 if v[scale, i, j] > eps:
@@ -95,7 +94,7 @@ def reinhardLocal(hdr, saturation, eps, phi, tmp):
     # clamp ldrPic to 1
     np.putmask(ldrPic, ldrPic > 1, 1)
 
-    # use dirty hack for matrix reshape operation
+    # use dirty transform for matrix reshape operation
     img = np.zeros((hdr.shape[1], hdr.shape[2], 3));
     k = 0
     r = 0
@@ -111,4 +110,4 @@ def reinhardLocal(hdr, saturation, eps, phi, tmp):
             r += 1
         k += 1
 
-    return [img, luminanceCompressed, v, v1Final, sm];
+    return [img];
