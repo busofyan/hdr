@@ -1,5 +1,5 @@
 def sample(image, sample_indices):
-    sample_indices = sample_indices.reshape((128));
+    #sample_indices = sample_indices.reshape((128));
 
     red_channel = image[:, :, 2];
     red = red_channel.flatten();

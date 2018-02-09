@@ -44,20 +44,11 @@ def reinhardGlobal(hdr, a, saturation):
     # clamp ldrPic to 1
     np.putmask(ldrPic, ldrPic > 1, 1)
 
-    # use dirty transform for matrix reshape operation
-    img = np.zeros((hdr.shape[1], hdr.shape[2], 3));
-    k = 0
-    r = 0
-    for i in range(0, hdr.shape[1]):
-        r = 0
-        for j in range(0, hdr.shape[2]):
-            axis = 0
-            img[k, r, axis] = ldrPic[0, :, :][k, r]
-            axis += 1
-            img[k, r, axis] = ldrPic[1, :, :][k, r]
-            axis += 1
-            img[k, r, axis] = ldrPic[2, :, :][k, r]
-            r += 1
-        k += 1
+    # convert color values to RGB
+    writeGlobal = np.ceil(ldrPic * 255)
 
-    return [img];
+    # stack every color matrix (axis) to build the image
+    writeGlobal = np.stack((writeGlobal[0, :, :], writeGlobal[1, :, :], writeGlobal[2, :, :]), axis=-1);
+    showGlobal = np.stack((ldrPic[0, :, :], ldrPic[1, :, :], ldrPic[2, :, :]), axis=-1);
+
+    return [showGlobal, writeGlobal];

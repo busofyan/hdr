@@ -10,7 +10,7 @@ from hdr import hdr
 from reinhardGlobal import reinhardGlobal
 from reinhardLocal import reinhardLocal
 
-dir_name = '../images/'
+dir_name = '../madrid/'
 [filenames, exposures, numExposures] = read_dir(dir_name)
 
 print('Opening Test Images\n')
@@ -56,7 +56,7 @@ print('Tonemapping - Reinhard local operator\n');
 saturation = 0.6;
 eps = 0.05;
 phi = 8;
-[ldrLocal] = reinhardLocal(hdrMap, saturation, eps, phi, tmp);
+#[showLocal, writeLocal] = reinhardLocal(hdrMap, saturation, eps, phi, tmp);
 
 # apply Reinhard global tonemapping oparator to the hdr radiance map
 print('Tonemapping - Reinhard global operator\n');
@@ -68,10 +68,12 @@ a = 0.72;
 # specify saturation of the resulting tonemapped image. See reinhardGlobal.py
 # for details
 saturation = 0.6;
-[ldrGlobal] = reinhardGlobal(hdrMap, a, saturation);
+[showGlobal, writeGlobal] = reinhardGlobal(hdrMap, a, saturation);
 
 # create a window for display.
-cv2.imshow("reinhardGlobal.jpg", ldrGlobal);
-cv2.imshow("reinhardLocal.jpg", ldrLocal);
+#cv2.imshow("reinhardGlobal", showGlobal);
+cv2.imwrite("reinhardGlobal.jpg", writeGlobal);
+#cv2.imshow("reinhardLocal", showLocal)
+#cv2.imwrite("reinhardLocal.jpg", writeLocal);
 print('Finished! Enjoy...\n');
 cv2.waitKey(0)
