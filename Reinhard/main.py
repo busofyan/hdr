@@ -10,7 +10,7 @@ from hdr import hdr
 from reinhardGlobal import reinhardGlobal
 from reinhardLocal import reinhardLocal
 
-dir_name = '../bamboo/'
+dir_name = '../desk/'
 [filenames, exposures, numExposures] = read_dir(dir_name)
 
 print('Opening Test Images\n')
@@ -71,7 +71,7 @@ saturation = 0.6;
 [showGlobal, writeGlobal] = reinhardGlobal(hdrMap, a, saturation);
 
 # create a window for display.
-#cv2.imshow("reinhardGlobal", showGlobal);
+cv2.imshow("reinhardGlobal", showGlobal);
 cv2.imwrite("reinhardGlobal.jpg", writeGlobal);
 cv2.imshow("reinhardLocal", showLocal)
 cv2.imwrite("reinhardLocal.jpg", writeLocal);

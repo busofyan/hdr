@@ -28,9 +28,9 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
 
         w = np.array(w)
 
-        np.putmask(wij[2, :, :], wij[2, :, :] > -1, w[255 - image[:, :, 2]])
-        np.putmask(wij[1, :, :], wij[1, :, :] > -1, w[255 - image[:, :, 1]])
-        np.putmask(wij[0, :, :], wij[0, :, :] > -1, w[255 - image[:, :, 0]])
+        np.putmask(wij[2, :, :], wij[2, :, :] == wij[2, :, :], w[255 - image[:, :, 2]])
+        np.putmask(wij[1, :, :], wij[1, :, :] == wij[1, :, :], w[255 - image[:, :, 1]])
+        np.putmask(wij[0, :, :], wij[0, :, :] == wij[0, :, :], w[255 - image[:, :, 0]])
 
         sum[2, :, :] = np.add(sum[2, :, :], wij[2, :, :]);
         sum[1, :, :] = np.add(sum[1, :, :], wij[1, :, :]);
