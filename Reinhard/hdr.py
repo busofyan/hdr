@@ -74,4 +74,5 @@ def hdr(filenames, gRed, gGreen, gBlue, w, dt):
     # normalize
     hdr = hdr / sum;
     hdr = np.exp(hdr);
+    print(hdr)
     return [hdr];

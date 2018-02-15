@@ -56,7 +56,7 @@ print('Tonemapping - Reinhard local operator\n');
 saturation = 0.6;
 eps = 0.05;
 phi = 8;
-[showLocal, writeLocal] = reinhardLocal(hdrMap, saturation, eps, phi, tmp);
+[showLocal, writeLocal] = reinhardLocal(hdrMap, saturation, eps, phi);
 
 # apply Reinhard global tonemapping oparator to the hdr radiance map
 print('Tonemapping - Reinhard global operator\n');

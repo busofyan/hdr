@@ -9,7 +9,7 @@ import cv2
 from makeLuminanceMap import makeLuminanceMap
 
 
-def reinhardLocal(hdr, saturation, eps, phi, tmp):
+def reinhardLocal(hdr, saturation, eps, phi):
     print('Computing luminance map\n');
     [luminance_map] = makeLuminanceMap(hdr);
     key = 0.18;
@@ -29,7 +29,6 @@ def reinhardLocal(hdr, saturation, eps, phi, tmp):
 
         # dicretize gaussian filter to a fixed np.size kernel.
         # a radius of 2*sigma should keep the error low enough...
-        # luminance_map = np.array(luminance_map)
         if scale < 8:
             gaussKernelHorizontal = cv2.getGaussianKernel(int(kernelSize), sigma, cv2.CV_32F)
             v1[scale, :, :] = cv2.filter2D(luminance_map, -1, gaussKernelHorizontal)

@@ -35,8 +35,6 @@ def reinhardGlobal(hdr, a, saturation):
     # all values are now mapped to the range [0,1]
     ldrLuminanceMap = np.divide(scaledLuminance, (scaledLuminance + 1));
 
-    ldrPic = np.zeros((3, hdr.shape[1], hdr.shape[2]));
-
     # re-apply color according to Fattals paper "Gradient Domain High Dynamic
     # Range Compression"
     ldrPic = np.multiply((np.power((hdr / luminanceMap), saturation)), ldrLuminanceMap)
